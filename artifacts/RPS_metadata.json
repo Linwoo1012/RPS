@@ -168,6 +168,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "deadlineDuration",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -250,6 +263,19 @@
 				"name": "input",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "lastAction",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -399,6 +425,13 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "timeOutWithDraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -437,11 +470,11 @@
 			]
 		},
 		"RPS.sol": {
-			"keccak256": "0x75c13246de9b507d2439713097d0def1b738f4052ef1d271ec2b5eef3aa934d3",
+			"keccak256": "0xf67ef5c0c946f8475164cdcf46a191c01ebf0a64e85a18d328fdd5a4775dcfa3",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://de0bf0f09178ad1e9d4e1c2d418c2759f56f92c8442bfc58ebc3dac601179107",
-				"dweb:/ipfs/QmPkFo2AHpo2sRq6x7LfX8A86mWDkHY1uiYZcHGrBv8Qg4"
+				"bzz-raw://10bee97635a7685bf9a6dd2862bc2fa4f3274577cff2bac389033fa93a479f98",
+				"dweb:/ipfs/QmXC1mQKY5qQEDPtpjCz8s86SbZ2mYJREtPV9eTZr3c3xH"
 			]
 		}
 	},

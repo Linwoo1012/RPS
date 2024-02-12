@@ -15,6 +15,8 @@ contract RPS is CommitReveal {
     mapping (uint => Player) public player;
     uint public numInput = 0;
     uint public numReveal = 0;
+    uint public deadlineDuration = 1 minutes;
+    uint public lastAction = block.timestamp;
 
     function addPlayer() public payable {
         require(numPlayer < 2);
@@ -25,6 +27,8 @@ contract RPS is CommitReveal {
         player[numPlayer].isCommit = false;
         numPlayer++;
         emit playerAdded(msg.sender, numPlayer);
+
+        lastAction = block.timestamp;
     }
 
     event playerAdded(address sender, uint numPlayer);
@@ -45,6 +49,8 @@ contract RPS is CommitReveal {
         commit(hashAns);
         numInput++;
         emit playerCommitHashed(msg.sender,numInput);
+
+        lastAction = block.timestamp;
     }
     
     event playerCommitHashed(address sender, uint numInput);
@@ -62,6 +68,8 @@ contract RPS is CommitReveal {
         revealAnswer(ChoiceByte, saltByte);
         player[idx].choice = choice;
         numReveal++;
+
+        lastAction = block.timestamp;
 
         if (numReveal == 2) {
             _checkWinnerAndPay();
@@ -94,5 +102,45 @@ contract RPS is CommitReveal {
         reward = 0;
         numInput = 0;
         numReveal = 0;
+    }
+
+    function timeOutWithDraw() public {
+        require(numPlayer >= 1);
+        require(block.timestamp > lastAction + deadlineDuration);
+        address payable account0 = payable(player[0].addr);
+        address payable account1 = payable(player[1].addr);
+        // only one player
+        if (numPlayer == 1) {
+            account0.transfer(reward);
+            _reset();
+        }
+        // two players, not input or input but not reveal
+        else if (numPlayer == 2 && (numInput == 0 || (numInput == 2 && numReveal == 0))) {
+            account0.transfer(reward / 2);
+            account1.transfer(reward / 2);
+            _reset();
+        }
+        // two players, only one input
+        else if (numPlayer == 2 && numInput == 1) {
+            // pay to the player who input
+            if (player[0].isCommit == true) {
+                account0.transfer(reward);
+            }
+            else {
+                account1.transfer(reward);
+            }
+            _reset();
+        }
+        // two players, only one reveal
+        else if (numPlayer == 2 && numInput == 2 && numReveal == 1) {
+            // pay to the player who reveal
+            if (player[0].choice != 3) {
+                account0.transfer(reward);
+            }
+            else {
+                account1.transfer(reward);
+            }
+            _reset();
+        }
     }
 }
