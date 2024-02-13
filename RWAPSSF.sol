@@ -6,7 +6,7 @@ import "./CommitReveal.sol";
 
 contract RPS is CommitReveal {
     struct Player {
-        uint choice; // 0 - Rock, 1 - Paper , 2 - Scissors, 3 - undefined
+        uint choice; // 0 - Rock, 1 - water , 2 -Air, 3-Paper, 4-sponge, 5-Scissors, 6-Fire, 7-undefined
         address addr;
         bool isCommit;
     }
@@ -23,7 +23,7 @@ contract RPS is CommitReveal {
         require(msg.value == 1 ether);
         reward += msg.value;
         player[numPlayer].addr = msg.sender;
-        player[numPlayer].choice = 3;
+        player[numPlayer].choice = 7;
         player[numPlayer].isCommit = false;
         numPlayer++;
         emit playerAdded(msg.sender, numPlayer);
@@ -34,7 +34,7 @@ contract RPS is CommitReveal {
     event playerAdded(address sender, uint numPlayer);
     
     function getBytes32(uint choice, string memory salt) view  public returns (bytes32){
-        require(choice >= 0 && choice <= 3);
+        require(choice >= 0 && choice <= 6);
         bytes32 saltByte = bytes32(abi.encodePacked(salt));
         bytes32 ChoiceByte = bytes32(abi.encodePacked(choice));
         return getSaltedHash(ChoiceByte, saltByte);
@@ -59,7 +59,7 @@ contract RPS is CommitReveal {
         require(numPlayer == 2);
         require(numInput == 2);
         require(msg.sender == player[idx].addr);
-        require(choice >= 0 && choice <= 3);
+        require(choice >= 0 && choice <= 6);
         require(player[idx].isCommit == true);
         
         bytes32 saltByte = bytes32(abi.encodePacked(salt));
@@ -82,18 +82,14 @@ contract RPS is CommitReveal {
         uint p1Choice = player[1].choice;
         address payable account0 = payable(player[0].addr);
         address payable account1 = payable(player[1].addr);
-        if ((p0Choice + 1) % 3 == p1Choice) {
-            // to pay player[1]
-            account1.transfer(reward);
-        }
-        else if ((p1Choice + 1) % 3 == p0Choice) {
-            // to pay player[0]
-            account0.transfer(reward);    
-        }
-        else {
-            // to split reward
-            account0.transfer(reward / 2);
-            account1.transfer(reward / 2);
+        if (p0Choice == p1Choice) {
+        account0.transfer(reward / 2);
+        account1.transfer(reward / 2);
+        } 
+        else if (((p0Choice + 1) % 7) == p1Choice || ((p0Choice + 2) % 7) == p1Choice || ((p0Choice + 3) % 7) == p1Choice) {
+        account1.transfer(reward);
+        } else {
+        account0.transfer(reward);
         }
     }
 
@@ -134,7 +130,7 @@ contract RPS is CommitReveal {
         // two players, only one reveal
         else if (numPlayer == 2 && numInput == 2 && numReveal == 1) {
             // pay to the player who reveal
-            if (player[0].choice != 3) {
+            if (player[0].choice != 7) {
                 account0.transfer(reward);
             }
             else {
