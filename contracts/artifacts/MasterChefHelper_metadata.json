@@ -1,0 +1,108 @@
+{
+	"compiler": {
+		"version": "0.8.16+commit.07a7930e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "masterchef",
+				"outputs": [
+					{
+						"internalType": "contract MasterChefLike",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "router",
+				"outputs": [
+					{
+						"internalType": "contract UniswapV2RouterLike",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "poolId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "tokenIn",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amountIn",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "minAmountOut",
+						"type": "uint256"
+					}
+				],
+				"name": "swapTokenForPoolToken",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/MasterChefHelper.sol": "MasterChefHelper"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/MasterChefHelper.sol": {
+			"keccak256": "0xb79d070212a7a69f77e1e67748372ba4727652cfee005756c5d040bcd744c85b",
+			"license": "UNLICENSED",
+			"urls": [
+				"bzz-raw://35f5c0571de9133fae36a66ee0eb314064c6431d70fbe6727caf0b5d6255a173",
+				"dweb:/ipfs/QmPNZaqzP8D2qXmb7NZTfgVJ3rTGL5Re8wMsnfy3t4xAMJ"
+			]
+		},
+		"contracts/UniswapV2Like.sol": {
+			"keccak256": "0x3d9d1ac86674927ee7fd62b350c9955755889f92d121b06c3a9068c19efe6969",
+			"license": "UNLICENSED",
+			"urls": [
+				"bzz-raw://34c1218e38142f7ead6b36a2917bae9c24b6bdd92453b5c18a108b192784183e",
+				"dweb:/ipfs/QmRHqnL4F4RvZLvLxT8XQdp4kWyNkVuscErQRmGuy9za9k"
+			]
+		}
+	},
+	"version": 1
+}

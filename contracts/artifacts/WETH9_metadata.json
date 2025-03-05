@@ -1,0 +1,147 @@
+{
+	"compiler": {
+		"version": "0.8.16+commit.07a7930e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "approve",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "balanceOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "deposit",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "transfer",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "transferFrom",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Setup.sol": "WETH9"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/MasterChefHelper.sol": {
+			"keccak256": "0xb79d070212a7a69f77e1e67748372ba4727652cfee005756c5d040bcd744c85b",
+			"license": "UNLICENSED",
+			"urls": [
+				"bzz-raw://35f5c0571de9133fae36a66ee0eb314064c6431d70fbe6727caf0b5d6255a173",
+				"dweb:/ipfs/QmPNZaqzP8D2qXmb7NZTfgVJ3rTGL5Re8wMsnfy3t4xAMJ"
+			]
+		},
+		"contracts/Setup.sol": {
+			"keccak256": "0x9ed429a9ff302de198cc6458f5288f7570771d2bae13b2062affcccc904af100",
+			"license": "UNLICENSED",
+			"urls": [
+				"bzz-raw://af59eae3971db0d8f38851c6f5b390d44a2177b3a8e3be8a34e1785fe2d56dc2",
+				"dweb:/ipfs/QmScjn8DRtt3a1dcsJwWrqPvkBekRnq13fTjfnPVpwXzeu"
+			]
+		},
+		"contracts/UniswapV2Like.sol": {
+			"keccak256": "0x3d9d1ac86674927ee7fd62b350c9955755889f92d121b06c3a9068c19efe6969",
+			"license": "UNLICENSED",
+			"urls": [
+				"bzz-raw://34c1218e38142f7ead6b36a2917bae9c24b6bdd92453b5c18a108b192784183e",
+				"dweb:/ipfs/QmRHqnL4F4RvZLvLxT8XQdp4kWyNkVuscErQRmGuy9za9k"
+			]
+		}
+	},
+	"version": 1
+}

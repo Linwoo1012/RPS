@@ -1,0 +1,209 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes32",
+						"name": "dataHash",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint64",
+						"name": "block",
+						"type": "uint64"
+					}
+				],
+				"name": "CommitHash",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes32",
+						"name": "revealHash",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "random",
+						"type": "uint256"
+					}
+				],
+				"name": "RevealHash",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "bchoice",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "choice",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "dataHash",
+						"type": "bytes32"
+					}
+				],
+				"name": "commit",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "commits",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "commit",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "uint64",
+						"name": "block",
+						"type": "uint64"
+					},
+					{
+						"internalType": "bool",
+						"name": "revealed",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "data",
+						"type": "bytes32"
+					}
+				],
+				"name": "getHash",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "max",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "revealHash",
+						"type": "bytes32"
+					}
+				],
+				"name": "reveal",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"CommitReveal.sol": "CommitReveal"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"CommitReveal.sol": {
+			"keccak256": "0x67ac52afd7fff8cfbee4ad4fa0c29d357699fa328da3f37ccef0daae89b00ed2",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://cd5816b15112767cdc73ad5acf6ee8b78f78ea3c9dbdfd6dc034f22c55726e78",
+				"dweb:/ipfs/QmNfXE3WnVnNbce2FAYTDy4ZjmEEAu4ajrVBapA2QjGauE"
+			]
+		}
+	},
+	"version": 1
+}
