@@ -16,7 +16,7 @@ contract RPS is CommitReveal, TimeUnit {
     mapping (address => bool) public isCommit;
     uint public numInput = 0;
     uint public numReveal = 0;
-    uint public timeoutDeration = 10 seconds;
+    uint public timeoutDeration = 1 minutes;
     uint public lastAction = block.timestamp;
 
     mapping(address => bool) private whitelistedPlayers;
