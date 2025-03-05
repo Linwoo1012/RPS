@@ -17,7 +17,7 @@ contract RPS is CommitReveal, TimeUnit {
     uint public numInput = 0;
     uint public numReveal = 0;
     uint public timeoutDeration = 1 minutes;
-    uint public lastAction = block.timestamp;
+    // uint public lastAction = block.timestamp;
 
     mapping(address => bool) private whitelistedPlayers;
 
