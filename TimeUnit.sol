@@ -10,7 +10,7 @@ contract TimeUnit {
   uint256 public startTime; 
   
   // setting the startTime variable 
-  function setStartTime() public { 
+  function setStartTime() internal { 
     startTime = block.timestamp; 
   } 
     

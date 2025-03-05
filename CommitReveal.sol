@@ -14,7 +14,7 @@ contract CommitReveal {
 
   mapping (address => Commit) public commits;
 
-  function commit(bytes32 dataHash) public {
+  function commit(bytes32 dataHash) internal {
     commits[msg.sender].commit = dataHash;
     commits[msg.sender].block = uint64(block.number);
     commits[msg.sender].revealed = false;
@@ -22,7 +22,7 @@ contract CommitReveal {
   }
   event CommitHash(address sender, bytes32 dataHash, uint64 block);
 
-  function reveal(bytes32 revealHash) public {
+  function reveal(bytes32 revealHash) internal {
     //make sure it hasn't been revealed yet and set it to revealed
     require(commits[msg.sender].revealed==false,"CommitReveal::reveal: Already revealed");
     commits[msg.sender].revealed=true;

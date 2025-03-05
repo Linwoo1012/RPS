@@ -108,19 +108,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "bytes32",
-						"name": "dataHash",
-						"type": "bytes32"
-					}
-				],
-				"name": "commit",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "address",
 						"name": "",
 						"type": "address"
@@ -350,19 +337,6 @@
 				"inputs": [
 					{
 						"internalType": "bytes32",
-						"name": "revealHash",
-						"type": "bytes32"
-					}
-				],
-				"name": "reveal",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "bytes32",
 						"name": "hashChoice",
 						"type": "bytes32"
 					}
@@ -383,13 +357,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "setStartTime",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -454,27 +421,27 @@
 	},
 	"sources": {
 		"CommitReveal.sol": {
-			"keccak256": "0xa7c55dbe55645df2ccfbe45a8c728f2274739a03425593f0fa2b0059a0ec67bb",
+			"keccak256": "0x4720db7675fbd35f96ac9d307ace6aa98024b27348bac9a8774c2938ee9a353a",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://afd85eb278be449665f41afecbc16ed6be2bc4551bf97042c650fca796f022e3",
-				"dweb:/ipfs/QmYxNVJ5nYu5c9eq31z3H7ydKdSbgWLa6yQynkEA1zzbou"
+				"bzz-raw://80a8a06fe5c46edfc3892b0ea3be9cf0b047ae518c7827f9b4fd74b79ec132d6",
+				"dweb:/ipfs/QmW417MUzbjfQWbKXvtiqB1E6pn62J91TswdFVQrzYyUm1"
 			]
 		},
 		"RPS.sol": {
-			"keccak256": "0x8a02ae50f3f0813f156b22a35bbe694082a7ea3e47289a943a35e1403fa81bfe",
+			"keccak256": "0xb6de07577aa0fbd3484fed1c76ae42ab0d0a3f8c4fb481d4f3563cbd18130268",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://b40a3c21e9e4e4a565aa7887acdda5e588bda530ff782b20f7f1462e51da2e09",
-				"dweb:/ipfs/QmW5KqvHAJMPJi1AuYmZg7EmBbEigUiSiyKEWtwfUkehJb"
+				"bzz-raw://4b43702d9dec660e2299f00dd50841ef5476c7f690763371ae8d6f4913ff188e",
+				"dweb:/ipfs/Qme4RFPhejdGYcd3K6pGJitZNA8PqsPvwmM9VwRbkLpXeZ"
 			]
 		},
 		"TimeUnit.sol": {
-			"keccak256": "0xa2c70f0d1c1f0e3fa4410deb705931ae04cfbebdd4ad1f362d7ec864d1db77f8",
+			"keccak256": "0x23c5586e80592799dba7a48d7c9ca8e263d6aadfc981313309155fa29ab38ab0",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://ebaed6d329470e76d0b7c7cc8ffd3a90809ccef45d40932ad888e78841752cc5",
-				"dweb:/ipfs/QmeDs5kJNtwA2YBTxayBQGjyyVhnrXLzwKFusYFoPwqGWk"
+				"bzz-raw://1abe50719140e0d22fb2537ac2e50bff5bcc714cb7ddc2fe2da2d4c05b2e4e46",
+				"dweb:/ipfs/QmccKPjYYWMgXQxA2em6JC77zpv4DjNsr3prLrLGyNVjtC"
 			]
 		}
 	},
