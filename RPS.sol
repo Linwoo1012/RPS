@@ -6,7 +6,7 @@ pragma solidity >=0.7.0 <0.9.0;
 import "./CommitReveal.sol";
 import "./TimeUnit.sol";
 
-contract RPS is CommitReveal {
+contract RPS is CommitReveal, TimeUnit {
     uint public numPlayer = 0;
     uint public reward = 0;
     mapping (address => uint) public player_choice; // 0 - Rock, 1 - Paper, 2 - Scissors, 3 - Lizard, 4 - Spock, 5 - Undefined
@@ -16,7 +16,7 @@ contract RPS is CommitReveal {
     mapping (address => bool) public isCommit;
     uint public numInput = 0;
     uint public numReveal = 0;
-    uint public timeoutDeration = 1 minutes;
+    uint public timeoutDeration = 10 seconds;
     uint public lastAction = block.timestamp;
 
     mapping(address => bool) private whitelistedPlayers;
@@ -43,7 +43,8 @@ contract RPS is CommitReveal {
         numPlayer++;
         emit playerAdded(msg.sender, numPlayer);
 
-        lastAction = block.timestamp;
+        // lastAction = block.timestamp;
+        setStartTime();
     }
 
     event playerAdded(address sender, uint numPlayer);
@@ -69,7 +70,8 @@ contract RPS is CommitReveal {
         numInput++;
         emit playerCommitHashed(msg.sender,numInput);
 
-        lastAction = block.timestamp;
+        // lastAction = block.timestamp;
+        setStartTime();
     }
 
     event playerCommitHashed(address sender, uint numInput);
@@ -92,7 +94,8 @@ contract RPS is CommitReveal {
 
         numReveal++;
 
-        lastAction = block.timestamp;
+        // lastAction = block.timestamp;
+        setStartTime();
 
         if(numReveal == 2){
             _checkWinnerAndPay();
@@ -131,41 +134,46 @@ contract RPS is CommitReveal {
 
     function timeOutWithDraw() public {
         require(numPlayer >= 1);
-        require(block.timestamp > lastAction + timeoutDeration);
+        // require(block.timestamp > lastAction + timeoutDeration);
+        require(elapsedSeconds() > timeoutDeration, "You need to wait 1 minute for withdraw.");
+        require(address(this).balance >= reward, "Contract has insufficient balance.");
         address payable account0 = payable(players[0]);
-        address payable account1 = payable(players[1]);
         // only one player
         if (numPlayer == 1) {
             account0.transfer(reward);
             _reset();
         }
-        // two players, not input or input but not reveal
-        else if (numPlayer == 2 && (numInput == 0 || (numInput == 2 && numReveal == 0))) {
-            account0.transfer(reward / 2);
-            account1.transfer(reward / 2);
-            _reset();
+        else if (numPlayer == 2) {
+            address payable account1 = payable(players[1]);
+            // two players, not input or input but not reveal
+            if (numInput == 0 || (numInput == 2 && numReveal == 0)) {
+                account0.transfer(reward / 2);
+                account1.transfer(reward / 2);
+                _reset();
+            }
+            // two players, only one input
+            else if (numInput == 1) {
+                // pay to the player who input
+                if (isCommit[account0] == true) {
+                    account0.transfer(reward);
+                }
+                else {
+                    account1.transfer(reward);
+                }
+                _reset();
+            }
+            // two players, only one reveal
+            else if (numInput == 2 && numReveal == 1) {
+                // pay to the player who reveal
+                if (player_choice[account0] != 5) {
+                    account0.transfer(reward);
+                }
+                else {
+                    account1.transfer(reward);
+                }
+                _reset();
+            }
         }
-        // two players, only one input
-        else if (numPlayer == 2 && numInput == 1) {
-            // pay to the player who input
-            if (isCommit[account0] == true) {
-                account0.transfer(reward);
-            }
-            else {
-                account1.transfer(reward);
-            }
-            _reset();
-        }
-        // two players, only one reveal
-        else if (numPlayer == 2 && numInput == 2 && numReveal == 1) {
-            // pay to the player who reveal
-            if (player_choice[account0] != 5) {
-                account0.transfer(reward);
-            }
-            else {
-                account1.transfer(reward);
-            }
-            _reset();
-        }
+
     }
 }
