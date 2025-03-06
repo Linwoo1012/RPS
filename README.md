@@ -97,6 +97,20 @@ To prevent players from knowing each other's choices before both have committed,
       numReveal++;
   }
   ```
+- **Determining the Winner** (`_checkWinnerAndPay` function)
+  
+   ```solidity
+   function _checkWinnerAndPay() private {
+       if (p0Choice == p1Choice) {
+           account0.transfer(reward / 2);
+           account1.transfer(reward / 2);
+       } else if ((p0Choice + 1) % 5 == p1Choice || (p0Choice + 3) % 5 == p1Choice) {
+           account1.transfer(reward);
+       } else {
+           account0.transfer(reward);
+       }
+   }
+   ```
 
 ---
 
@@ -224,52 +238,3 @@ else if (numInput == 2 && numReveal == 1) {
 - If both players input but only one revealed, the player who revealed their input gets the full reward.
 
 ---
-
----
-
-## **Reveal and Winner Determination**
-1. **Revealing Choices**:
-   ```solidity
-    function revealChoice(bytes32 hashChoice) public {
-        require(numPlayer == 2);
-        require(numInput == 2);
-
-        uint choice = uint8(hashChoice[31]);
-        require(choice >= 0 && choice <= 4, "Your choice needs to be between 0 to 4");
-        require(isCommit[msg.sender], "You need to commit first.");
-
-        // bytes32 saltByte = bytes32(abi.encodePacked(salt));
-        // bytes32 choiceByte = bytes32(abi.encodePacked(choice));
-
-        // revealAnswer(choiceByte, saltByte);
-        reveal(hashChoice);
-
-        player_choice[msg.sender] = choice;
-
-        numReveal++;
-
-        // lastAction = block.timestamp;
-        setStartTime();
-
-        if(numReveal == 2){
-            _checkWinnerAndPay();
-            _reset();
-        }
-    }
-   ```
-   
-
-2. **Determining the Winner**:
-   ```solidity
-   function _checkWinnerAndPay() private {
-       if (p0Choice == p1Choice) {
-           account0.transfer(reward / 2);
-           account1.transfer(reward / 2);
-       } else if ((p0Choice + 1) % 5 == p1Choice || (p0Choice + 3) % 5 == p1Choice) {
-           account1.transfer(reward);
-       } else {
-           account0.transfer(reward);
-       }
-   }
-   ```
-   The logic follows the game rules for Rock-Paper-Scissors-Lizard-Spock.
