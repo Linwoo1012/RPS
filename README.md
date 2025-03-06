@@ -237,4 +237,16 @@ else if (numInput == 2 && numReveal == 1) {
 ```
 - If both players input but only one revealed, the player who revealed their input gets the full reward.
 
+- A **reset mechanism** in `_reset()`
+```solidity
+function _reset() private {
+    delete players;
+
+    numPlayer = 0;
+    numInput = 0;
+    numReveal = 0;
+    reward = 0;
+}
+```
+- When the game ended or the player used `timeOutWithDraw()` the `_reset()` will call and reset state of the contract
 ---
