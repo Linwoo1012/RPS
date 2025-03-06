@@ -97,6 +97,22 @@ To prevent players from knowing each other's choices before both have committed,
     function getHash(bytes32 data) public pure returns(bytes32){
         return keccak256(abi.encodePacked(data));
     }
+    ```
+  - `generateRandomBytes32` function (use it instead of [choice_hiding_code.ipynb](https://colab.research.google.com/drive/1cPqxOqzJ-brL05pd0WRAwwwK0Zzx-Rnl?usp=sharing))
+    ```solidity
+    function generateRandomBytes32(uint8 choice, string memory salt) public view returns (bytes32) {
+        require(choice <= 4, "Invalid choice");
+        
+        // Generate a random 31-byte value
+        bytes32 randomHash = keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender, salt));
+        bytes31 randomBytes = bytes31(randomHash);
+        
+        // Append the choice as the last byte
+        bytes32 dataInput = bytes32(abi.encodePacked(randomBytes, bytes1(choice)));
+        
+        return dataInput;
+    }
+    ```
   - `input` function
     `hashAns` is bytes32 that we got from `getHash` function.
     Use `setStartTime()` for reset time.
