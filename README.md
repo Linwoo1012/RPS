@@ -2,11 +2,11 @@
 
 ## How It Works
 
-1. **Players join the game**: Only whitelisted players can participate, and each must deposit 1 ether to enter.
-2. **Commit phase**: Players submit a hashed choice (commitment) without revealing their selection.
-3. **Reveal phase**: Players disclose their choice along with the secret used for hashing.
-4. **Winner determination**: The contract evaluates the choices and transfers the reward.
-5. **Timeout handling**: If a player delays their move, the contract allows a withdrawal mechanism.
+1. Players join the game
+2. [Commit phase](#commit-phase-input-and-gethash-function)
+3. [Reveal phase](#reveal-phase-revealchoice-function)
+4. [Winner determination](#determining-the-winner-_checkwinnerandpay-function)
+5. [Timeout handling & Reset state](#handling-player-delays--preventing-locked-funds-in-the-contract)
 
 ---
 
@@ -58,7 +58,7 @@ contract RPS is CommitReveal, TimeUnit {
 
 ## **Commit-Reveal Mechanism**
 To prevent players from knowing each other's choices before both have committed, the contract follows a **commit-reveal** pattern:
-- **Commit phase** (`input` and `getHash` function)
+- ### Commit phase (`input` and `getHash` function)
   - `getHash` function
     Create input by using choice concatenated with random bits (in Solidity is hard to get real ramdom numbers thus, using Python for random input is a better solution.) [choice_hiding_code.ipynb](https://colab.research.google.com/drive/1cPqxOqzJ-brL05pd0WRAwwwK0Zzx-Rnl?usp=sharing)
     ```solidity
@@ -81,7 +81,7 @@ To prevent players from knowing each other's choices before both have committed,
     }
     ```
   
-- **Reveal phase** (`revealChoice` function)
+- ### **Reveal phase** (`revealChoice` function)
   `hashChoice` is created by [choice_hiding_code.ipynb](https://colab.research.google.com/drive/1cPqxOqzJ-brL05pd0WRAwwwK0Zzx-Rnl?usp=sharing) in **Commit phase**
   `player_choice` is the last byte of `hashChoice` because [choice_hiding_code.ipynb](https://colab.research.google.com/drive/1cPqxOqzJ-brL05pd0WRAwwwK0Zzx-Rnl?usp=sharing) generates bytes32 and saves the choice at the last byte.
   ```solidity
@@ -97,7 +97,7 @@ To prevent players from knowing each other's choices before both have committed,
       numReveal++;
   }
   ```
-- **Determining the Winner** (`_checkWinnerAndPay` function)
+- ### **Determining the Winner** (`_checkWinnerAndPay` function)
   
    ```solidity
    function _checkWinnerAndPay() private {
