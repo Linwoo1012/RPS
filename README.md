@@ -56,6 +56,38 @@ contract RPS is CommitReveal, TimeUnit {
 
 ---
 
+## **Add player Mechanism**
+```solidity
+function addPlayer() public payable {
+    require(numPlayer < 2, "Game already has 2 players.");
+    require(whitelistedPlayers[msg.sender], "You are not allowed to play.");
+    if (numPlayer > 0) {
+        require(msg.sender != players[0]);
+    }
+    require(msg.value == 1 ether, "Pay 1 ether to play game.");
+    reward += msg.value;
+    player_not_played[msg.sender] = true;
+    players.push(msg.sender);
+    player_choice[msg.sender] = 5;
+    isCommit[msg.sender] = false;
+    numPlayer++;
+    emit playerAdded(msg.sender, numPlayer);
+
+    // lastAction = block.timestamp;
+    setStartTime();
+}
+
+event playerAdded(address sender, uint numPlayer);
+```
+- `Player Limit` Ensures there are no more than 2 players.
+- `Whitelist Check` Verifies the player is whitelisted.
+- `Prevents Duplicate Players` Ensures the same player can't join twice.
+- `Payment Requirement` Requires the player to pay exactly 1 ether.
+- `Game State Update` Updates the reward pool, initializes player data (`player_choice`, `isCommit`), and adds the player to the game.
+- `Increment Player` Count Increases `numPlayer`.
+- `Set Start Time` Calls setStartTime() to log the start time.
+---
+
 ## **Commit-Reveal Mechanism**
 To prevent players from knowing each other's choices before both have committed, the contract follows a **commit-reveal** pattern:
 - ### Commit phase (`input` and `getHash` function)
@@ -67,6 +99,7 @@ To prevent players from knowing each other's choices before both have committed,
     }
   - `input` function
     `hashAns` is bytes32 that we got from `getHash` function.
+    Use `setStartTime()` for reset time.
     ```solidity
     function input(bytes32 hashAns) public  {
         require(numPlayer == 2, "Game needs 2 players.");
@@ -77,25 +110,48 @@ To prevent players from knowing each other's choices before both have committed,
         player_not_played[msg.sender] = false;
         isCommit[msg.sender] = true;
         commit(hashAns);
+
         numInput++;
+        emit playerCommitHashed(msg.sender,numInput);
+
+        // lastAction = block.timestamp;
+        setStartTime();
     }
+
+    event playerCommitHashed(address sender, uint numInput);
     ```
   
 - ### **Reveal phase** (`revealChoice` function)
   `hashChoice` is created by [choice_hiding_code.ipynb](https://colab.research.google.com/drive/1cPqxOqzJ-brL05pd0WRAwwwK0Zzx-Rnl?usp=sharing) in **Commit phase**
   `player_choice` is the last byte of `hashChoice` because [choice_hiding_code.ipynb](https://colab.research.google.com/drive/1cPqxOqzJ-brL05pd0WRAwwwK0Zzx-Rnl?usp=sharing) generates bytes32 and saves the choice at the last byte.
+  Use `setStartTime()` for reset time.
   ```solidity
-  function revealChoice(bytes32 hashChoice) public {
-      require(numPlayer == 2);
-      require(numInput == 2);
-      uint choice = uint8(hashChoice[31]);
-      require(choice >= 0 && choice <= 4, "Your choice needs to be between 0 to 4");
-      require(isCommit[msg.sender], "You need to commit first.");
-      
-      reveal(hashChoice);
-      player_choice[msg.sender] = choice;
-      numReveal++;
-  }
+    function revealChoice(bytes32 hashChoice) public {
+        require(numPlayer == 2);
+        require(numInput == 2);
+
+        uint choice = uint8(hashChoice[31]);
+        require(choice >= 0 && choice <= 4, "Your choice needs to be between 0 to 4");
+        require(isCommit[msg.sender], "You need to commit first.");
+
+        // bytes32 saltByte = bytes32(abi.encodePacked(salt));
+        // bytes32 choiceByte = bytes32(abi.encodePacked(choice));
+
+        // revealAnswer(choiceByte, saltByte);
+        reveal(hashChoice);
+
+        player_choice[msg.sender] = choice;
+
+        numReveal++;
+
+        // lastAction = block.timestamp;
+        setStartTime();
+
+        if(numReveal == 2){
+            _checkWinnerAndPay();
+            _reset();
+        }
+    }
   ```
 - ### **Determining the Winner** (`_checkWinnerAndPay` function)
   
