@@ -48,13 +48,18 @@ contract RPS is CommitReveal, TimeUnit {
 
     event playerAdded(address sender, uint numPlayer);
 
-    // function getBytes32(uint choice, string memory salt) view  public returns (bytes32){
-    //     require(choice >= 0 && choice <= 4, "Your choice needs to be between 0 to 4");
-    //     bytes32 saltByte = bytes32(abi.encodePacked(salt));
-    //     bytes32 choiceByte = bytes32(abi.encodePacked(choice));
-    //     return getSaltedHash(choiceByte, saltByte);
-    // }
-
+    function generateRandomBytes32(uint8 choice, string memory salt) public view returns (bytes32) {
+        require(choice <= 4, "Invalid choice");
+        
+        // Generate a random 31-byte value
+        bytes32 randomHash = keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender, salt));
+        bytes31 randomBytes = bytes31(randomHash);
+        
+        // Append the choice as the last byte
+        bytes32 dataInput = bytes32(abi.encodePacked(randomBytes, bytes1(choice)));
+        
+        return dataInput;
+    }
 
     function input(bytes32 hashAns) public  {
         require(numPlayer == 2, "Game needs 2 players.");
