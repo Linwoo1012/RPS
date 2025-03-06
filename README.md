@@ -2,7 +2,7 @@
 
 ## How It Works
 
-1. Players join the game
+1. [Players join the game](#add-player-mechanism)
 2. [Commit phase](#commit-phase-input-and-gethash-function)
 3. [Reveal phase](#reveal-phase-revealchoice-function)
 4. [Winner determination](#determining-the-winner-_checkwinnerandpay-function)
