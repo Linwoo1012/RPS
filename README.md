@@ -154,7 +154,12 @@ To prevent players from knowing each other's choices before both have committed,
     }
   ```
 - ### **Determining the Winner** (`_checkWinnerAndPay` function)
-  
+  ![img](https://raw.githubusercontent.com/Linwoo1012/RPS/refs/heads/main/img/RPSLS.webp)<br/>
+To determine the winner, we use modulo arithmetic instead of a complex if-else chain. This method checks the outcome based on the players' choices.
+
+  - **Equal Choices** If both players select the same choice (p0Choice == p1Choice), the reward is split equally between them.
+  - **Player 1 Wins** If Player 1's choice beats Player 0's choice (using modulo logic), Player 1 receives the entire reward.
+  - **Player 0 Wins** If Player 0's choice beats Player 1's, Player 0 receives the entire reward.
    ```solidity
    function _checkWinnerAndPay() private {
        if (p0Choice == p1Choice) {
