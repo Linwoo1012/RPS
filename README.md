@@ -177,7 +177,7 @@ To determine the winner, we use modulo arithmetic instead of a complex if-else c
 
 ## **Handling Player Delays & Preventing Locked Funds in the Contract**
 The contract ensures that funds are always withdrawn and never permanently locked by implementing
-- A **timeout withdrawal mechanism** in `timeOutWithDraw()`
+### A **timeout withdrawal mechanism** in `timeOutWithDraw()`
   ```solidity
     function timeOutWithDraw() public {
         require(numPlayer >= 1);
@@ -298,7 +298,7 @@ else if (numInput == 2 && numReveal == 1) {
 ```
 - If both players input but only one revealed, the player who revealed their input gets the full reward.
 
-- A **reset mechanism** in `_reset()`
+### A **reset mechanism** in `_reset()`
 ```solidity
 function _reset() private {
     delete players;
